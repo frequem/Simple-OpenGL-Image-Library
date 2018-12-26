@@ -49,6 +49,6 @@ install(
 )
 
 install(
-	FILES ${SOIL_HEADERS}
+	FILES ${HEADERS}
 	DESTINATION "include/SOIL"
 )
