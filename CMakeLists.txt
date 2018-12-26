@@ -21,14 +21,20 @@ target_link_libraries (SOIL ${LIBRARIES})
 install(
 	TARGETS SOIL
 	EXPORT SOILTargets
-	LIBRARY DESTINATION "lib"
 	ARCHIVE DESTINATION "lib"
+	LIBRARY DESTINATION "lib"
 	INCLUDES DESTINATION "include"
 )
 
 install(
 	FILES ${SOIL_HEADERS}
 	DESTINATION "include/SOIL"
+)
+
+install(
+	FILES "${CMAKE_CURRENT_SOURCE_DIR}/SOILConfig.cmake"
+	DESTINATION "lib/cmake/SOIL"
+	COMPONENT Devel
 )
 
 install(
