@@ -1,5 +1,5 @@
 cmake_minimum_required (VERSION 2.6)
-project (SOIL)
+project (soil)
 
 if(ANDROID)
   # Android requires GL ES 2.0 package automatically
@@ -13,42 +13,45 @@ endif()
 list(APPEND LIBRARIES m)
 
 file (GLOB SOURCES src/*.c)
-file (GLOB HEADERS src/*.h)
+file (GLOB HEADERS include/SOIL/*.h)
 
-add_library (${PROJECT_NAME} ${SOURCES})
-target_include_directories(SOIL PUBLIC "$<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/src>" $<INSTALL_INTERFACE:include/SOIL>)
-target_link_libraries (SOIL ${LIBRARIES})
+add_library (${PROJECT_NAME} ${SOURCES} ${HEADERS})
+target_link_libraries (soil PUBLIC ${LIBRARIES})
+target_include_directories(soil PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>)
 
-install(
-	TARGETS SOIL
-	EXPORT SOILTargets
-	LIBRARY DESTINATION "lib"
-	ARCHIVE DESTINATION "lib"
-	INCLUDES DESTINATION "include/SOIL"
-)
-
-include(CMakePackageConfigHelpers)
-write_basic_package_version_file("${CMAKE_BINARY_DIR}/SOILConfigVersion.cmake"
-  VERSION 1.0.1
-  COMPATIBILITY AnyNewerVersion
-)
+include(GNUInstallDirs)
 
 install(
-	EXPORT SOILTargets
-	FILE SOILTargets.cmake
-	NAMESPACE "SOIL::"
-	DESTINATION "lib/cmake/SOIL"
-)
-
-install(
-	FILES
-		"${CMAKE_CURRENT_SOURCE_DIR}/SOILConfig.cmake"
-		"${CMAKE_BINARY_DIR}/SOILConfigVersion.cmake"
-	DESTINATION "lib/cmake/SOIL"
-	COMPONENT Devel
+	TARGETS soil
+	EXPORT soilTargets
+    LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}"
+    ARCHIVE DESTINATION "${CMAKE_INSTALL_LIBDIR}"
+    RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}"
+    INCLUDES DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}"
 )
 
 install(
 	FILES ${HEADERS}
-	DESTINATION "include/SOIL"
+	DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/SOIL"
+)
+
+include(CMakePackageConfigHelpers)
+
+write_basic_package_version_file("${CMAKE_BINARY_DIR}/soilConfigVersion.cmake"
+  VERSION 1.1.0
+  COMPATIBILITY AnyNewerVersion
+)
+
+install(
+	FILES
+		"${CMAKE_CURRENT_SOURCE_DIR}/soilConfig.cmake"
+		"${CMAKE_BINARY_DIR}/soilConfigVersion.cmake"
+	DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/SOIL"
+)
+
+install(
+	EXPORT soilTargets
+	FILE soilTargets.cmake
+	NAMESPACE "soil::"
+	DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/SOIL"
 )
