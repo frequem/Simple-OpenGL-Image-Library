@@ -38,7 +38,7 @@ install(
 include(CMakePackageConfigHelpers)
 
 write_basic_package_version_file("${CMAKE_BINARY_DIR}/soilConfigVersion.cmake"
-  VERSION 1.1.0
+  VERSION 1.0.3
   COMPATIBILITY AnyNewerVersion
 )
 

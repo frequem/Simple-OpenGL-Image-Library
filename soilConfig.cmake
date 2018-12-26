@@ -1,1 +1,1 @@
-include("${CMAKE_CURRENT_LIST_DIR}/SOILTargets.cmake")
+include("${CMAKE_CURRENT_LIST_DIR}/soilTargets.cmake")
