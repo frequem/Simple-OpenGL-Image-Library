@@ -10,7 +10,9 @@ else()
   set(LIBRARIES ${OPENGL_LIBRARIES})
 endif()
 
-list(APPEND LIBRARIES m)
+if(NOT MSVC)
+	list(APPEND LIBRARIES m)
+endif()
 
 file (GLOB SOURCES src/*.c)
 file (GLOB HEADERS include/SOIL/*.h)
@@ -38,7 +40,7 @@ install(
 include(CMakePackageConfigHelpers)
 
 write_basic_package_version_file("${CMAKE_BINARY_DIR}/soilConfigVersion.cmake"
-  VERSION 1.0.3
+  VERSION 1.0.4
   COMPATIBILITY AnyNewerVersion
 )
 
